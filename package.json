@@ -1,7 +1,7 @@
 {
   "name": "unroll",
   "version": "0.0.1",
-  "description": "A test helper method to run the same test method against different arguments and show verbose output about what is being tested",
+  "description": "A helper tool to easily iterate through test data against a test method with verbose output about each iteration.",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec test/test.js"
