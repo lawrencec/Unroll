@@ -6,7 +6,10 @@
   "scripts": {
     "test": "mocha -R spec test/test.js"
   },
-  "repository": "",
+  "repository": {
+      "type": "git",
+      "url": "git@github.com:lawrencec/Unroll.git"
+  },
   "keywords": [
     "tdd",
     "bdd",
