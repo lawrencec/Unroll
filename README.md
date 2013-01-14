@@ -1,4 +1,4 @@
-Unroll
+Unroll [![Build Status](https://travis-ci.org/lawrencec/Unroll.png?branch=master)](https://travis-ci.org/lawrencec/Unroll)
 ======
 
 A helper tool to easily iterate through test data against a test method with verbose output about each iteration.
