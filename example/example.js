@@ -1,0 +1,36 @@
+var chai = require('chai'),
+    fs = require('fs'),
+    sinonChai = require('sinon-chai'),
+    sinon = require('sinon'),
+    unroll = require('../index.js');
+
+chai.use(sinonChai);
+
+var expect = chai.expect;
+
+describe('maximum of two numbers', function() {
+
+  it('is performed correctly', function(done) {
+
+    expect(Math.max(3, 5)).to.be.equal(5);
+    expect(Math.max(7, 0)).to.be.equal(7); // change equal param to 0 to see failure
+    done();
+  });
+});
+
+describe('maximum of two numbers', function() {
+  unroll('maximum of #a and #b is #c',
+    function(done, testArgs) {
+      expect(
+        Math.max(testArgs['a'], testArgs['b'])
+      ).to.be.equal(testArgs['c']);
+      done();
+    },
+
+    [
+      ['a', 'b', 'c'],
+      [ 3,   5,   5 ],
+      [ 7,   0,   7 ] // change last parameter to 0 to see failure
+    ]
+  );
+});

@@ -1,0 +1,26 @@
+{
+  "name": "unroll",
+  "version": "0.0.1",
+  "description": "A test helper method to run the same test method against different arguments and show verbose output about what is being tested",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec test/test.js"
+  },
+  "repository": "",
+  "keywords": [
+    "tdd",
+    "bdd",
+    "testing",
+    "test",
+    "unit",
+    "unroll"
+  ],
+  "author": "Lawrence Carvalho",
+  "license": "BSD",
+  "dependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
+  }
+}
