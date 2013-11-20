@@ -1,0 +1,13 @@
+{
+  "globals": {
+    "it": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "to": true,
+    "be": true,
+    "called": true,
+    "require": true,
+    "sinonChai": true
+  }
+}

@@ -1,5 +1,4 @@
 var chai = require('chai'),
-    fs = require('fs'),
     sinonChai = require('sinon-chai'),
     sinon = require('sinon'),
     unroll = require('../index.js');
@@ -14,7 +13,7 @@ describe('outputs test title correctly', function() {
 
   it('when correctly called', function(done) {
 
-    var stub = sinon.stub(global, 'it', function(title, fn) {
+    var stub = sinon.stub(global, 'it', function(title) {
       expect(title).to.equal('The "cat" jumped over the "moon".');
 
     });
@@ -41,18 +40,18 @@ describe('calls the test function', function() {
   it('with unrolled test arguments correctly', function(done) {
 
     var stub = sinon.stub(global, 'it', function(title, fn) {
-      expect(fn).to.be.a.function;
+      expect(fn).to.be.a('function');
       fn();
     });
 
     unroll(testTitle,
             function(done, testArgs) {
               expect(arguments.length).to.equal(2);
-              expect(testArgs).to.exist;
+              expect(testArgs).to.be.an('object');
               expect(Object.keys(testArgs).length).to.equal(2);
               expect(Object.keys(testArgs).join(',')).to.equal('entity,thing');
-              expect(testArgs['entity']).to.equal('cat');
-              expect(testArgs['thing']).to.equal('moon');
+              expect(testArgs.entity).to.equal('cat');
+              expect(testArgs.thing).to.equal('moon');
             },
 
             [

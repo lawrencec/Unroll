@@ -1,7 +1,5 @@
 var chai = require('chai'),
-    fs = require('fs'),
     sinonChai = require('sinon-chai'),
-    sinon = require('sinon'),
     unroll = require('../index.js');
 
 chai.use(sinonChai);
@@ -22,8 +20,8 @@ describe('maximum of two numbers', function() {
   unroll('maximum of #a and #b is #c',
     function(done, testArgs) {
       expect(
-        Math.max(testArgs['a'], testArgs['b'])
-      ).to.be.equal(testArgs['c']);
+        Math.max(testArgs.a, testArgs.b)
+      ).to.be.equal(testArgs.c);
       done();
     },
 
