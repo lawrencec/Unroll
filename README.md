@@ -19,7 +19,7 @@ A coverage report can be generated in target/lcov-report/index.html via:
 	
     npm run coverage
 
-Browser tests can be run via karma:
+Browser tests can be run via karma (install the dev dependencies first):
 
     karma start test/conf/karma.conf.js
 
