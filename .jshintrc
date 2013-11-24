@@ -8,6 +8,7 @@
     "be": true,
     "called": true,
     "require": true,
-    "sinonChai": true
+    "sinonChai": true,
+    "module": true
   }
 }

@@ -1,14 +1,15 @@
 {
   "name": "unroll",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A helper tool to easily iterate through test data against a test method with verbose output about each iteration.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec test/test.js"
+    "test": "mocha -R spec test/specs/*Spec.js",
+    "coverage": "mkdir -p ./target; istanbul cover --report lcov --dir ./target node_modules/.bin/_mocha -- -R spec --recursive test/specs/*Spec.js"
   },
   "repository": {
-      "type": "git",
-      "url": "git@github.com:lawrencec/Unroll.git"
+    "type": "git",
+    "url": "git://github.com/lawrencec/unroll"
   },
   "keywords": [
     "tdd",
@@ -25,5 +26,26 @@
     "mocha": "*",
     "sinon": "*",
     "sinon-chai": "*"
+  },
+  "devDependencies": {
+    "istanbul": "*",
+    "jshint": "~2.3.0",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.3",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": "~0.10.4",
+    "karma-mocha": "~0.1.0",
+    "karma-chai": "0.0.2",
+    "karma-sinon": "~1.0.0",
+    "karma-spec-reporter": "0.0.6",
+    "karma-coverage": "~0.1.2",
+    "karma-junit-reporter": "~0.1.0",
+    "karma-chai-sinon": "~0.1.0",
+    "karma-browserify": "0.0.5"
   }
 }

@@ -11,7 +11,7 @@ describe('maximum of two numbers', function() {
   it('is performed correctly', function(done) {
 
     expect(Math.max(3, 5)).to.be.equal(5);
-    expect(Math.max(7, 0)).to.be.equal(7); // change equal param to 0 to see failure
+    expect(Math.max(7, 0)).to.be.equal(7);
     done();
   });
 });

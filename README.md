@@ -1,7 +1,7 @@
 Unroll [![Build Status](https://travis-ci.org/lawrencec/Unroll.png?branch=master)](https://travis-ci.org/lawrencec/Unroll)
 ======
 
-A helper tool to easily iterate through test data against a test method with verbose output about each iteration.
+A helper tool (for browser and node tests) to easily iterate through test data against a single test method with output about each test iteration and its parameters. Or in other words a helper method to parameterize your tests.
 
 It is an attempt to provide similar behaviour to the [Unroll annotation](http://docs.spockframework.org/en/latest/data_driven_testing.html#method-unrolling) from [Spock](https://code.google.com/p/spock/).
 
@@ -9,21 +9,59 @@ It is an attempt to provide similar behaviour to the [Unroll annotation](http://
 
     npm install unroll
 
-##Usage
-
-I've only tested it with [ChaiJS](http://chaijs.com/) and [Mocha](http://visionmedia.github.com/mocha/) and primarily in bdd mode but it should support the other mocha's interfaces too eg tdd.
-
 ##Tests
 
 Tests can be run, from the project root directory, via:
 
     npm test
 
+A coverage report can be generated in target/lcov-report/index.html via:
+	
+    npm run coverage
+
+Browser tests can be run via karma:
+
+    karma start test/conf/karma.conf.js
+
+##Usage
+
+Use the unroll() function instead of it(), or test() depending on your chosen interface, passing in the required parameters. See example below.
+
+Tested it with [ChaiJS](http://chaijs.com/) and [Mocha](http://visionmedia.github.com/mocha/).
+
 ##Example
 
-The following example is the same shown in example/example.js file. It can be run using Mocha eg:
+The examples directory has examples for Mocha's tdd, bdd and qunit interfaces in both js and coffeescript flavours.
 
-    mocha -R spec ./example.js
+Use mocha arguments to specify the interface and coffeescript if required:
+
+bdd javascript
+
+    mocha -R spec example/mocha-bdd-example.js
+
+tdd javascript
+
+    mocha -R spec -u tdd example/mocha-tdd-example.js
+
+qunit javascript
+
+    mocha -R spec -u qunit example/mocha-qunit-example.js
+
+bdd coffeescript
+
+    mocha -R spec --compilers coffee:coffee-script example/mocha-bdd-example.coffee
+
+tdd coffeescript
+
+    mocha -R spec -u tdd --compilers coffee:coffee-script example/mocha-tdd-example.coffee
+
+qunit coffeescript
+
+    mocha -R spec -u qunit --compilers coffee:coffee-script example/mocha-qunit-example.coffee
+
+The following example is the same shown in example/mocha-bdd-example.js file. It can be run using Mocha eg:
+
+    mocha -R spec ./mocha-bdd-example.js
 
 
 Using a similar example from the above spock unroll documentation, a simple test of testing maximum of two numbers eg:
@@ -97,8 +135,3 @@ and a failing test would show the following:
 
       1) maximum of two numbers (unrolled) maximum of 7 and 0 is 0:
          expected 7 to equal 0
-
-##Todo
-
-- Probably more extensive tests.
-- There is potential to remove the requirement for the testArgs parameter within the testFunc by providing the values as a global and the cleaning it up after each iteration. In fact this was how the initial code worked but mocha's global-leak checks run before the values can be cleaned up which make it flag global leak error.
