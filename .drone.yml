@@ -1,4 +1,4 @@
-image: bradrydzewski/node:0.10
+image: node0.10
 script:
   - npm -d install
   - npm test
