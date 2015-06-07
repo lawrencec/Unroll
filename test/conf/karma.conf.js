@@ -28,6 +28,11 @@ module.exports = function(config) {
       outputFile: 'target/test-results.xml'
     },
 
+    coverageReporter: {
+      type : 'html',
+      dir : 'target/coverage/'
+    },
+
     // web server port
     // CLI --port 9876
     port: 9876,
