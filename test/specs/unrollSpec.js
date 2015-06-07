@@ -91,8 +91,11 @@ describe('unroll()', function() {
     var testTitle = 'The #entity jumped over the #thing.';
 
     it('with unrolled test arguments correctly', function(done) {
+      var theGlobal = typeof window !== 'undefined'
+        ? window
+        : global;
 
-      var stub = sinon.stub(global, 'it', function(title, fn) {
+      var stub = sinon.stub(theGlobal, 'it', function(title, fn) {
         expect(fn).to.be.a('function');
         fn();
       });
@@ -211,7 +214,10 @@ describe('unroll()', function() {
 
 
     it('must return the correct specified grammar', function () {
-      global.test = function() {};
+      var theGlobal = typeof window !== 'undefined'
+        ? window
+        : global;
+      theGlobal.test = function() {};
       var grammar = unroll.use('tdd');
       expect(grammar).to.be.a('function');
       grammar = unroll.use('bdd');
@@ -220,7 +226,7 @@ describe('unroll()', function() {
       expect(grammar).to.be.a('function');
       grammar = unroll.use('unknown');
       expect(grammar).to.be.a('null');
-      global.test = null;
+      theGlobal.test = null;
     });
 
     it('should use bdd if no grammar specified', function() {
