@@ -24,8 +24,8 @@ module.exports = function(config) {
     reporters: ['spec','junit', 'coverage'],
 
     junitReporter: {
-      // will be resolved to basePath (in the same way as files/exclude patterns)
-      outputFile: 'target/test-results.xml'
+      outputDir: './target/',
+      outputFile: 'test-results.xml'
     },
 
     coverageReporter: {
