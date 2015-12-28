@@ -3,61 +3,50 @@ Unroll [![Build Status](https://drone.io/github.com/lawrencec/Unroll/status.png)
 
 A helper tool (for browser and node tests) to easily iterate through test data against a single test method with output about each test iteration and its parameters. Or in other words a helper method to parameterize your tests.
 
-It is an attempt to provide similar behaviour to the [Unroll annotation](http://docs.spockframework.org/en/latest/data_driven_testing.html#method-unrolling) from [Spock](https://code.google.com/p/spock/).
+It is an attempt to provide similar behaviour to the [Unroll annotation]
+(https://spockframework.github.io/spock/docs/1.0/data_driven_testing.html#_method_unrolling) from [Spock](https://code.google.com/p/spock/).
 
-##Install
+Unroll works by decorating the testing library function so it works with any testing library e.g  [Jasmine](https://jasmine.github.io/), [Mocha](http://visionmedia.github.com/mocha/), [Tape](https://github.com/substack/tape), [AVA](https://github.com/sindresorhus/ava). The example directory has working examples of each.
+
+
+## Install
 
     npm install unroll
 
-##Tests
+## Usage
 
-Tests can be run, from the project root directory, via:
+Include `unroll` in your test file and configure.
 
-    npm test
+	var unroll = require('unroll');
+	unroll.use(it); // specify test library function here.
 
-A coverage report can be generated in target/lcov-report/index.html via:
-	
-    npm run coverage
+Instead of calling the testing library function e.g `it` or `test`, call `unroll` with three arguments:
 
-Browser tests can be run via karma (install the dev dependencies first):
+- name of the test with parameterized names
+- test function
+- data table of parameters to pass to tests.
 
-    karma start test/conf/karma.conf.js
+Note the use of `#` character to prefix parameter name and the additional argument `testArgs` from which to reference the arguments.
 
-##Usage
+      ```
+	describe('maximum of two numbers (unrolled)', function() {
+        unroll('maximum of #a and #b is #c',
+          function(done, testArgs) {
+            expect(
+              Math.max(testArgs['a'], testArgs['b'])
+            ).to.be.equal(testArgs['c']);
+            done();
+          },
+          [
+            ['a', 'b', 'c'],
+            [ 3,   5,   5 ],
+            [ 7,   0,   7 ]
+          ]
+        );
+    });
 
-Use the unroll() function instead of it(), or test() depending on your chosen interface, passing in the required parameters. See example below.
 
-Tested it with [ChaiJS](http://chaijs.com/) and [Mocha](http://visionmedia.github.com/mocha/).
-
-##Example
-
-The examples directory has examples for Mocha's tdd, bdd and qunit interfaces in both js and coffeescript flavours.
-
-Use mocha arguments to specify the interface and coffeescript if required:
-
-bdd javascript
-
-    mocha -R spec example/mocha-bdd-example.js
-
-tdd javascript
-
-    mocha -R spec -u tdd example/mocha-tdd-example.js
-
-qunit javascript
-
-    mocha -R spec -u qunit example/mocha-qunit-example.js
-
-bdd coffeescript
-
-    mocha -R spec --compilers coffee:coffee-script example/mocha-bdd-example.coffee
-
-tdd coffeescript
-
-    mocha -R spec -u tdd --compilers coffee:coffee-script example/mocha-tdd-example.coffee
-
-qunit coffeescript
-
-    mocha -R spec -u qunit --compilers coffee:coffee-script example/mocha-qunit-example.coffee
+## Examples
 
 The following example is the same shown in example/mocha-bdd-example.js file. It can be run using Mocha eg:
 
@@ -98,21 +87,21 @@ whilst a failing test would look like:
 
 But using unroll(), like so:
 
-
-    describe('maximum of two numbers (unrolled)', function() {
-      unroll('maximum of #a and #b is #c',
-        function(done, testArgs) {
-          expect(
-            Math.max(testArgs['a'], testArgs['b'])
-          ).to.be.equal(testArgs['c']);
-          done();
-        },
-        [
-          ['a', 'b', 'c'],
-          [ 3,   5,   5 ],
-          [ 7,   0,   7 ]
-        ]
-      );
+      unroll.use(it);
+      describe('maximum of two numbers (unrolled)', function() {
+        unroll('maximum of #a and #b is #c',
+          function(done, testArgs) {
+            expect(
+              Math.max(testArgs['a'], testArgs['b'])
+            ).to.be.equal(testArgs['c']);
+            done();
+          },
+          [
+            ['a', 'b', 'c'],
+            [ 3,   5,   5 ],
+            [ 7,   0,   7 ]
+          ]
+        );
     });
 
 would give an unrolled test output like:
@@ -135,3 +124,50 @@ and a failing test would show the following:
 
       1) maximum of two numbers (unrolled) maximum of 7 and 0 is 0:
          expected 7 to equal 0
+
+
+The examples directory has examples for Mocha's tdd, bdd and qunit interfaces in both js and coffeescript flavours.
+
+Use mocha arguments to specify the interface and coffeescript if required:
+
+bdd javascript
+
+    mocha -R spec example/mocha-bdd-example.js
+
+tdd javascript
+
+    mocha -R spec -u tdd example/mocha-tdd-example.js
+
+qunit javascript
+
+    mocha -R spec -u qunit example/mocha-qunit-example.js
+
+bdd coffeescript
+
+    mocha -R spec --compilers coffee:coffee-script example/mocha-bdd-example.coffee
+
+tdd coffeescript
+
+    mocha -R spec -u tdd --compilers coffee:coffee-script example/mocha-tdd-example.coffee
+
+qunit coffeescript
+
+    mocha -R spec -u qunit --compilers coffee:coffee-script example/mocha-qunit-example.coffee
+
+
+
+## Tests
+
+Tests can be run, from the project root directory, via:
+
+    npm test
+
+A coverage report can be generated in target/lcov-report/index.html via:
+	
+    npm run coverage
+
+Browser tests can be run via karma (install the dev dependencies first):
+
+    karma start test/conf/karma.conf.js
+
+

@@ -11,16 +11,17 @@ var expect = chai.expect;
 describe('unroll()', function() {
   describe('outputs test title correctly', function() {
     var testTitle = 'The #entity jumped over the #thing.',
+        sandbox,
         spy;
 
     beforeEach(function() {
-      unroll.grammar = function() {};
-      spy = sinon.spy(unroll, 'grammar');
+      sandbox = sinon.sandbox.create();
+      spy = sandbox.spy(function() {});
+      unroll.use(spy);
     });
 
     afterEach(function() {
-      unroll.grammar.restore();
-      delete unroll.grammar;
+      sandbox.restore();
     });
 
     it('when correctly called with string values', function(done) {
@@ -91,15 +92,14 @@ describe('unroll()', function() {
     var testTitle = 'The #entity jumped over the #thing.';
 
     it('with unrolled test arguments correctly', function(done) {
-      var theGlobal = typeof window !== 'undefined'
-        ? window
-        : global;
-
-      var stub = sinon.stub(theGlobal, 'it', function(title, fn) {
+      var dummyContainer = {
+        it: function() {}
+      };
+      var stub = sinon.stub(dummyContainer, 'it', function(title, fn) {
         expect(fn).to.be.a('function');
         fn();
       });
-
+      unroll.use(stub);
       unroll(testTitle,
               function(done, testArgs) {
                 expect(arguments.length).to.equal(2);
@@ -125,6 +125,8 @@ describe('unroll()', function() {
         spy;
 
     beforeEach(function() {
+      unroll.grammar = null;
+      unroll.use(it);
       spy = sinon.spy(unroll);
     });
 
@@ -210,42 +212,36 @@ describe('unroll()', function() {
   });
 
   describe('.use()', function() {
-      var testTitle = 'The #entity jumped over the #thing.';
-
+    beforeEach(function() {
+      unroll.use(null);
+    });
+    var testTitle = 'The #entity jumped over the #thing.';
 
     it('must return the correct specified grammar', function () {
-      var theGlobal = typeof window !== 'undefined'
-        ? window
-        : global;
-      theGlobal.test = function() {};
-      var grammar = unroll.use('tdd');
+      var grammar = unroll.use(function() {});
       expect(grammar).to.be.a('function');
-      grammar = unroll.use('bdd');
-      expect(grammar).to.be.a('function');
-      grammar = unroll.use('qunit');
-      expect(grammar).to.be.a('function');
-      grammar = unroll.use('unknown');
-      expect(grammar).to.be.a('null');
-      theGlobal.test = null;
     });
 
-    it('should use bdd if no grammar specified', function() {
-      var spy = sinon.spy(unroll, 'use');
-      unroll.grammar = null;
-      unroll(testTitle,
-          function(done, testArgs) {
+    it('should use throw error if no grammar specified', function() {
+      var error = '';
+      try {
+        unroll(testTitle,
+            function(done, testArgs) {
 
-          },
+            },
 
-          [
-            ['entity', 'thing'],
-            ['cat', {}]
-          ]
+            [
+              ['entity', 'thing'],
+              ['cat', {}]
+            ]
+        );
+      } catch (e) {
+        error = e.toString();
+      }
+
+      expect(error).to.equal(
+        'Error: No grammar specified. Use unroll.use() to specify test function to unroll over.'
       );
-      expect(spy.callCount).to.equal(1);
-      expect(spy.firstCall.args[0]).to.equal('bdd');
-      unroll.use.restore();
-      spy.reset();
     });
   });
 });

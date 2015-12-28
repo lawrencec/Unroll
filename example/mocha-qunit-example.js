@@ -3,9 +3,10 @@ var chai = require('chai'),
     unroll = require('../index.js');
 
 chai.use(sinonChai);
+unroll.use(test);
 
 var expect = chai.expect;
-unroll.use('qunit');
+
 suite('maximum of two numbers');
 test('is performed correctly', function(done) {
   expect(Math.max(3, 5)).to.be.equal(5);

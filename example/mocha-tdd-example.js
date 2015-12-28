@@ -3,9 +3,10 @@ var chai = require('chai'),
     unroll = require('../index.js');
 
 chai.use(sinonChai);
+unroll.use(test);
 
 var expect = chai.expect;
-unroll.use('tdd');
+
 suite('maximum of two numbers', function() {
 
   test('is performed correctly', function(done) {

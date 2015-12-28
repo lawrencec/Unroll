@@ -3,6 +3,7 @@ var chai = require('chai'),
     unroll = require('../index.js');
 
 chai.use(sinonChai);
+unroll.use(it);
 
 var expect = chai.expect;
 
