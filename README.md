@@ -126,33 +126,21 @@ and a failing test would show the following:
          expected 7 to equal 0
 
 
-The examples directory has examples for Mocha's tdd, bdd and qunit interfaces in both js and coffeescript flavours.
+The examples directory has examples for Mocha's tdd, bdd and qunit interfaces.
 
-Use mocha arguments to specify the interface and coffeescript if required:
+Use mocha arguments to specify the interface:
 
-bdd javascript
+- bdd javascript
 
-    mocha -R spec example/mocha-bdd-example.js
+    	mocha -R spec example/mocha-bdd-example.js
 
-tdd javascript
+- tdd javascript
 
-    mocha -R spec -u tdd example/mocha-tdd-example.js
+    	mocha -R spec -u tdd example/mocha-tdd-example.js
 
-qunit javascript
+- qunit javascript
 
-    mocha -R spec -u qunit example/mocha-qunit-example.js
-
-bdd coffeescript
-
-    mocha -R spec --compilers coffee:coffee-script example/mocha-bdd-example.coffee
-
-tdd coffeescript
-
-    mocha -R spec -u tdd --compilers coffee:coffee-script example/mocha-tdd-example.coffee
-
-qunit coffeescript
-
-    mocha -R spec -u qunit --compilers coffee:coffee-script example/mocha-qunit-example.coffee
+    	mocha -R spec -u qunit example/mocha-qunit-example.js
 
 
 

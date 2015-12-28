@@ -17,7 +17,7 @@ describe('maximum of two numbers', function() {
   });
 });
 
-describe('maximum of two numbers', function() {
+describe('maximum of two numbers (unrolled)', function() {
   unroll('maximum of #a and #b is #c',
     function(done, testArgs) {
       expect(

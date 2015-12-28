@@ -17,7 +17,7 @@ suite('maximum of two numbers', function() {
   });
 });
 
-suite('[Unrolled] maximum of two numbers', function() {
+suite('maximum of two numbers (unrolled)', function() {
 
   unroll('maximum of #a and #b is #c',
     function(done, testArgs) {

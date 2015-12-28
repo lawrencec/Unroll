@@ -14,7 +14,7 @@ test('is performed correctly', function(done) {
   done();
 });
 
-suite('maximum of two numbers');
+suite('maximum of two numbers (unrolled)');
 unroll('maximum of #a and #b is #c',
   function(done, testArgs) {
     expect(
