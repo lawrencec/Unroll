@@ -1,4 +1,4 @@
-Unroll [![Build Status](https://drone.io/github.com/lawrencec/Unroll/status.png)](https://drone.io/github.com/lawrencec/Unroll/latest)
+Unroll [![Build Status](https://drone.io/github.com/lawrencec/Unroll/status.png)](https://drone.io/github.com/lawrencec/Unroll/latest) [![Code Climate](https://codeclimate.com/github/lawrencec/Unroll/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/Unroll) [![Test Coverage](https://codeclimate.com/github/lawrencec/Unroll/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/Unroll/coverage)
 ======
 
 A helper tool (for browser and node tests) to easily iterate through test data against a single test method with output about each test iteration and its parameters. Or in other words a helper method to parameterize your tests.

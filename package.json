@@ -7,7 +7,8 @@
     "lint": "eslint lib/**/*.js test/**/*.js example/**/*.js ./*.js",
     "test": "mocha -R spec test/specs/*Spec.js",
     "test-browser": "karma start test/conf/karma.conf",
-    "coverage": "mkdir -p ./target; istanbul cover --report lcov --dir ./target node_modules/.bin/_mocha -- -R spec --recursive test/specs/*Spec.js"
+    "coverage": "mkdir -p ./target; istanbul cover --report lcov --dir ./target node_modules/.bin/_mocha -- -R spec --recursive test/specs/*Spec.js",
+    "coverage-cc": "npm run coverage; codeclimate-test-reporter < target/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "^2.3.0",
+    "codeclimate-test-reporter": "^0.1.1",
     "eslint": "^1.10.3",
     "eslint-config-google": "^0.3.0",
     "istanbul": "^0.3.22",
