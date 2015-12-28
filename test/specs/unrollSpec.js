@@ -1,18 +1,18 @@
-var chai = chai || require('chai'),
-    sinon = sinon || require('sinon'),
-    unroll = unroll || require('../../lib/unroll.js');
+var chai = chai || require('chai');
+var sinon = sinon || require('sinon');
+var unroll = unroll || require('../../lib/unroll.js');
 
 if (typeof window === 'undefined') {
-  sinonChai = require('sinon-chai');
+  var sinonChai = require('sinon-chai');
   chai.use(sinonChai);
 }
 var expect = chai.expect;
 
 describe('unroll()', function() {
   describe('outputs test title correctly', function() {
-    var testTitle = 'The #entity jumped over the #thing.',
-        sandbox,
-        spy;
+    var testTitle = 'The #entity jumped over the #thing.';
+    var sandbox;
+    var spy;
 
     beforeEach(function() {
       sandbox = sinon.sandbox.create();
@@ -26,7 +26,7 @@ describe('unroll()', function() {
 
     it('when correctly called with string values', function(done) {
       unroll(testTitle,
-        function(done, testArgs) {
+        function() {
 
         },
         [
@@ -35,55 +35,57 @@ describe('unroll()', function() {
         ]
       );
       expect(spy.callCount).to.equal(1);
-      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped over the "moon".');
+      expect(spy.firstCall.args[0])
+            .to
+            .equal('The "cat" jumped over the "moon".');
       done();
     });
 
     it('when correctly called with object values', function(done) {
       var testTitle = 'The #entity jumped over the #thing.';
       unroll(testTitle,
-          function(done, testArgs) {},
-          [
-            ['entity', 'thing'],
-            ['cat', {}]
-          ]
+        function() {},
+        [
+          ['entity', 'thing'],
+          ['cat', {}]
+        ]
       );
       expect(spy.callCount).to.equal(1);
-      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped over the [object Object].');
+      expect(spy.firstCall.args[0])
+            .to
+            .equal('The "cat" jumped over the [object Object].');
       done();
     });
 
     it('when correctly called with array values', function(done) {
       var testTitle = 'The #entity jumped over the #thing.';
       unroll(testTitle,
-          function(done, testArgs) {
-
-          },
-
-          [
-            ['entity' ,   'thing'],
-            ['cat'    ,   [1]]
-          ]
+        function() {},
+        [
+          ['entity', 'thing'],
+          ['cat', [1]]
+        ]
       );
       expect(spy.callCount).to.equal(1);
-      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped over the [object Array].');
+      expect(spy.firstCall.args[0])
+            .to
+            .equal('The "cat" jumped over the [object Array].');
       done();
     });
 
     it('when correctly called with number values', function(done) {
       var testTitle = 'The #entity jumped over the moon #times times.';
       unroll(testTitle,
-          function(done, testArgs) {
-
-          },
-
-          [
-            ['entity' ,   'times'],
-            ['cat'    ,   6]
-          ]
+        function() {},
+        [
+          ['entity', 'times'],
+          ['cat', 6]
+        ]
       );
       expect(spy.callCount).to.equal(1);
-      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped over the moon 6 times.');
+      expect(spy.firstCall.args[0])
+          .to
+          .equal('The "cat" jumped over the moon 6 times.');
       done();
     });
   });
@@ -101,19 +103,18 @@ describe('unroll()', function() {
       });
       unroll.use(stub);
       unroll(testTitle,
-              function(done, testArgs) {
-                expect(arguments.length).to.equal(2);
-                expect(testArgs).to.be.an('object');
-                expect(Object.keys(testArgs).length).to.equal(2);
-                expect(Object.keys(testArgs).join(',')).to.equal('entity,thing');
-                expect(testArgs.entity).to.equal('cat');
-                expect(testArgs.thing).to.equal('moon');
-              },
-
-              [
-                ['entity', 'thing'],
-                ['cat', 'moon']
-              ]
+        function(done, testArgs) {
+          expect(arguments.length).to.equal(2);
+          expect(testArgs).to.be.an('object');
+          expect(Object.keys(testArgs).length).to.equal(2);
+          expect(Object.keys(testArgs).join(',')).to.equal('entity,thing');
+          expect(testArgs.entity).to.equal('cat');
+          expect(testArgs.thing).to.equal('moon');
+        },
+        [
+          ['entity', 'thing'],
+          ['cat', 'moon']
+        ]
       );
       stub.restore();
       done();
@@ -121,8 +122,8 @@ describe('unroll()', function() {
   });
 
   describe('throws exception when incorrectly called', function() {
-    var testTitle = 'The #entity jumped over the #thing.',
-        spy;
+    var testTitle = 'The #entity jumped over the #thing.';
+    var spy;
 
     beforeEach(function() {
       unroll.grammar = null;
@@ -140,14 +141,13 @@ describe('unroll()', function() {
 
       try {
         unroll(testTitle,
-          function(done, testArgs) {},
+          function() {},
           [
             ['incorrect', 'stuff'],
             ['bar', 'moon']
           ]
         );
-      }
-      catch (e) {
+      } catch (e) {
         error = e.toString();
       }
 
@@ -165,14 +165,13 @@ describe('unroll()', function() {
 
       try {
         unroll(testTitle,
-          function(done, testArgs) {},
+          function() {},
           [
             ['incorrect', 'stuff'],
             ['cat']
           ]
         );
-      }
-      catch (e) {
+      } catch (e) {
         error = e.toString();
       }
 
@@ -190,20 +189,19 @@ describe('unroll()', function() {
 
       try {
         unroll(testTitle,
-            function(done, testArgs) {},
-            [
+            function() {},
+          [
               ['incorrect', {}],
               ['cat', 'dog']
-            ]
+          ]
         );
-      }
-      catch (e) {
+      } catch (e) {
         error = e.toString();
       }
 
       expect(spy.called);
       expect(spy.threw());
-      expect(error).to.equal('' +
+      expect(error).to.equal(
         'Error: Incorrect type for arg:"[object Object]"  - must be a string'
       );
 
@@ -217,7 +215,7 @@ describe('unroll()', function() {
     });
     var testTitle = 'The #entity jumped over the #thing.';
 
-    it('must return the correct specified grammar', function () {
+    it('must return the correct specified grammar', function() {
       var grammar = unroll.use(function() {});
       expect(grammar).to.be.a('function');
     });
@@ -226,21 +224,18 @@ describe('unroll()', function() {
       var error = '';
       try {
         unroll(testTitle,
-            function(done, testArgs) {
-
-            },
-
-            [
-              ['entity', 'thing'],
-              ['cat', {}]
-            ]
+          function() {},
+          [
+            ['entity', 'thing'],
+            ['cat', {}]
+          ]
         );
       } catch (e) {
         error = e.toString();
       }
 
       expect(error).to.equal(
-        'Error: No grammar specified. Use unroll.use() to specify test function to unroll over.'
+        'Error: No grammar specified: Use unroll.use() to specify test function'
       );
     });
   });

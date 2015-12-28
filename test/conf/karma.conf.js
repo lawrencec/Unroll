@@ -21,7 +21,7 @@ module.exports = function(config) {
     // use dots reporter, as travis terminal does not support escaping sequences
     // possible values: 'dots', 'progress'
     // CLI --reporters progress
-    reporters: ['spec','junit', 'coverage'],
+    reporters: ['spec', 'junit', 'coverage'],
 
     junitReporter: {
       outputDir: './target/',
@@ -29,8 +29,8 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      type : 'html',
-      dir : 'target/coverage/'
+      type: 'html',
+      dir: 'target/coverage/'
     },
 
     // web server port
