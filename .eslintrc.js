@@ -7,6 +7,7 @@ module.exports = {
     beforeEach: true,
     afterEach: true,
     test: true,
-    suite: true
+    suite: true,
+    jasmine: true
   }
 };

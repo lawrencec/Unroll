@@ -1,13 +1,10 @@
 var chai = require('chai');
-var sinonChai = require('sinon-chai');
-var unroll = require('../index.js');
-
-chai.use(sinonChai);
-unroll.use(test);
-
+var unroll = require('../../index.js');
 var expect = chai.expect;
 
-suite('maximum of two numbers', function() {
+unroll.use(test);
+
+suite('[mocha tdd] maximum of two numbers (without unroll)', function() {
   test('is performed correctly', function(done) {
     expect(Math.max(3, 5)).to.be.equal(5);
     expect(Math.max(7, 0)).to.be.equal(7);
@@ -15,7 +12,7 @@ suite('maximum of two numbers', function() {
   });
 });
 
-suite('maximum of two numbers (unrolled)', function() {
+suite('[mocha tdd] maximum of two numbers (unrolled)', function() {
   unroll('maximum of #a and #b is #c',
     function(done, testArgs) {
       expect(

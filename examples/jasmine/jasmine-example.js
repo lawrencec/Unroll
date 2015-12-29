@@ -1,13 +1,16 @@
 var chai = require('chai');
-var sinonChai = require('sinon-chai');
-var unroll = require('../index.js');
+var unroll = require('../../index.js');
+var expect = chai.expect;
+var jasmineReporters = require('jasmine-reporters');
 
-chai.use(sinonChai);
+jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
+  verbosity: 3,
+  color: true,
+  showStack: true
+}));
 unroll.use(it);
 
-var expect = chai.expect;
-
-describe('maximum of two numbers', function() {
+describe('[jasmine bdd] maximum of two numbers (without unroll)', function() {
   it('is performed correctly', function(done) {
     expect(Math.max(3, 5)).to.be.equal(5);
     expect(Math.max(7, 0)).to.be.equal(7);
@@ -15,7 +18,7 @@ describe('maximum of two numbers', function() {
   });
 });
 
-describe('maximum of two numbers (unrolled)', function() {
+describe('[jasmine bdd] maximum of two numbers (unrolled)', function() {
   unroll('maximum of #a and #b is #c',
     function(done, testArgs) {
       expect(

@@ -6,12 +6,18 @@ A helper tool (for browser and node tests) to easily iterate through test data a
 It is an attempt to provide similar behaviour to the [Unroll annotation]
 (https://spockframework.github.io/spock/docs/1.0/data_driven_testing.html#_method_unrolling) from [Spock](https://code.google.com/p/spock/).
 
-Unroll works by decorating the testing library function so it works with any testing library e.g  [Jasmine](https://jasmine.github.io/), [Mocha](http://visionmedia.github.com/mocha/), [Tape](https://github.com/substack/tape), [AVA](https://github.com/sindresorhus/ava). The example directory has working examples of each.
+Unroll works by decorating the testing library function so it works with any testing library e.g  [Jasmine](https://jasmine.github.io/), [Mocha](http://visionmedia.github.com/mocha/), [Tape](https://github.com/substack/tape), [AVA](https://github.com/sindresorhus/ava). The `examples` directory has working examples of each. See below for instructions on how to run them.
 
 
 ## Install
 
-    npm install unroll
+	$> npm install unroll
+
+To run the unit tests or the examples:
+
+	$> npm install
+
+`npm run` commands expects `node_modules/.bin/` to be in `$PATH`.
 
 ## Usage
 
@@ -48,7 +54,7 @@ Note the use of `#` character to prefix parameter name and the additional argume
 
 ## Examples
 
-The following example is the same shown in example/mocha-bdd-example.js file. It can be run using Mocha eg:
+The following example is the same shown in examples/mocha-bdd-example.js file. It can be run using Mocha eg:
 
     mocha -R spec ./mocha-bdd-example.js
 
@@ -126,36 +132,47 @@ and a failing test would show the following:
          expected 7 to equal 0
 
 
-The examples directory has examples for Mocha's tdd, bdd and qunit interfaces.
+The examples directory has examples for various testing frameworks. There are `npm run` commands to run each example or one can run all the examples with: 
 
-Use mocha arguments to specify the interface:
+	$> npm run examples
 
-- bdd javascript
+### Mocha
 
-    	mocha -R spec example/mocha-bdd-example.js
+Mocha's allows one use different interfaces e.g tdd, bdd and qunit. Run all the examples for each with:
 
-- tdd javascript
+	$> npm run example-mocha
 
-    	mocha -R spec -u tdd example/mocha-tdd-example.js
+### AVA
 
-- qunit javascript
+	$> npm run example-ava
 
-    	mocha -R spec -u qunit example/mocha-qunit-example.js
+### Tape
 
+	$> npm run example-tape
+
+### Jasmine
+
+	$> npm run example-jasmine
 
 
 ## Tests
 
 Tests can be run, from the project root directory, via:
 
-    npm test
-
-A coverage report can be generated in target/lcov-report/index.html via:
-	
-    npm run coverage
+    $> npm test
 
 Browser tests can be run via karma (install the dev dependencies first):
 
-    karma start test/conf/karma.conf.js
+    $> npm run test-browser
+
+A coverage report can be generated in target/lcov-report/index.html via:
+	
+    $> npm run coverage
+
+## Lint
+
+Linting can be tested with:
+
+	$> npm run lint
 
 
