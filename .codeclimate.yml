@@ -1,3 +1,10 @@
 engines:
   eslint:
     enabled: true
+
+ratings:
+   paths:
+   - "examples/**/*.js"
+   - "lib/*.js"
+   - "test/specs/*.js"
+   - "*.js"
