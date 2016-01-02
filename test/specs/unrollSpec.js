@@ -47,15 +47,33 @@ describe('unroll()', function() {
         function() {},
         [
           ['entity', 'thing'],
-          ['cat', {}]
+          ['cat', {isAnObject: true}]
         ]
       );
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
             .to
-            .equal('The "cat" jumped over the [object Object].');
+            .equal('The "cat" jumped over the {"isAnObject":true}.');
       done();
     });
+
+    it('when correctly called with object values and title references subkey',
+      function(done) {
+        var testTitle = 'The #entity jumped over the #thing.name.';
+        unroll(testTitle,
+          function() {},
+          [
+            ['entity', 'thing'],
+            ['cat', {name: 'dog'}]
+          ]
+        );
+        expect(spy.callCount).to.equal(1);
+        expect(spy.firstCall.args[0])
+          .to
+          .equal('The "cat" jumped over the "dog".');
+        done();
+      }
+    );
 
     it('when correctly called with array values', function(done) {
       var testTitle = 'The #entity jumped over the #thing.';
@@ -69,7 +87,7 @@ describe('unroll()', function() {
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
             .to
-            .equal('The "cat" jumped over the [object Array].');
+            .equal('The "cat" jumped over the [1].');
       done();
     });
 
@@ -191,7 +209,7 @@ describe('unroll()', function() {
         unroll(testTitle,
             function() {},
           [
-              ['incorrect', {}],
+              ['incorrect', {shouldNotBeAnObject: true}],
               ['cat', 'dog']
           ]
         );
@@ -202,7 +220,33 @@ describe('unroll()', function() {
       expect(spy.called);
       expect(spy.threw());
       expect(error).to.equal(
-        'Error: Incorrect type for arg:"[object Object]"  - must be a string'
+        'Error: Incorrect type for arg:"{"shouldNotBeAnObject":true}"' +
+        ' - must be a string'
+      );
+
+      done();
+    });
+
+    it('with incorrectly subkey references in title', function(done) {
+      var testTitle = 'The #entity jumped over the #thing.INCORRECT.';
+      var error = '';
+
+      try {
+        unroll(testTitle,
+          function() {},
+          [
+            ['entity', 'thing'],
+            ['cat', {name: 'dog'}]
+          ]
+        );
+      } catch (e) {
+        error = e.toString();
+      }
+
+      expect(spy.called);
+      expect(spy.threw());
+      expect(error).to.equal(
+          'Error: INCORRECT not found in arg: {"name":"dog"}'
       );
 
       done();
