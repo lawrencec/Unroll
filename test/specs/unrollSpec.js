@@ -106,35 +106,84 @@ describe('unroll()', function() {
           .equal('The "cat" jumped over the moon 6 times.');
       done();
     });
+
+    it('when called with incorrect sequence of testArgs in the title', function() {
+      
+      unroll('The #entity jumped.', 
+        function() {}, 
+        [
+          ['entity', 'thing'],
+          ['cat', 'moon'],
+          [1, 2],
+          [{name: 'cat'}, {name: 'moon'}]
+        ]
+      );
+
+      expect(spy.callCount).to.equal(3);
+      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped.');
+      expect(spy.secondCall.args[0]).to.equal('The 1 jumped.');
+      expect(spy.thirdCall.args[0]).to.equal('The {"name":"cat"} jumped.')
+
+    });
   });
 
   describe('calls the test function', function() {
-    var testTitle = 'The #entity jumped over the #thing.';
+    var dummyContainer, stub;
 
-    it('with unrolled test arguments correctly', function(done) {
-      var dummyContainer = {
+    beforeEach(function() {
+      dummyContainer = {
         it: function() {}
       };
-      var stub = sinon.stub(dummyContainer, 'it', function(title, fn) {
+      stub = sinon.stub(dummyContainer, 'it', function(title, fn) {
         expect(fn).to.be.a('function');
         fn();
       });
       unroll.use(stub);
-      unroll(testTitle,
-        function(done, testArgs) {
-          expect(arguments.length).to.equal(2);
-          expect(testArgs).to.be.an('object');
-          expect(Object.keys(testArgs).length).to.equal(2);
-          expect(Object.keys(testArgs).join(',')).to.equal('entity,thing');
-          expect(testArgs.entity).to.equal('cat');
-          expect(testArgs.thing).to.equal('moon');
-        },
-        [
-          ['entity', 'thing'],
-          ['cat', 'moon']
-        ]
-      );
+    });
+
+    afterEach(function() {
       stub.restore();
+    });
+
+    it('with unrolled test arguments correctly', function(done) {
+
+      var possibleTitles = [
+        'The #entity jumped over the #thing.',
+        'The #thing was jumped over by the #entity.',
+        'The #entity jumped.',
+        'The #thing was jumped over.',
+        'There was a jump.',
+        ''
+      ];
+
+      var possibleValues = [
+        ['cat', 'moon'],
+        [1,2],
+        [[1,2,3], [4,5,6]],
+        [{name: 'cat', type: 'animal'}, {name: 'moon', type: 'object'}]
+      ];
+
+      possibleValues.forEach(function(value) {
+        possibleTitles.forEach(
+          function (title) {
+            unroll(title,
+              function (done, testArgs) {
+                expect(arguments.length).to.equal(2);
+                expect(testArgs).to.be.an('object');
+                expect(Object.keys(testArgs).length).to.equal(2);
+                expect(Object.keys(testArgs).join(',')).to.equal('entity,thing');
+                expect(testArgs.entity).to.equal(value[0]);
+                expect(testArgs.thing).to.equal(value[1]);
+              },
+              [
+                ['entity', 'thing'],
+                value
+              ]
+            );
+          }
+        );
+      });
+
       done();
     });
   });
