@@ -113,7 +113,7 @@ But using unroll(), like so:
 would give an unrolled test output like:
 
 
-      maximum of two numbers
+      maximum of two numbers(unrolled)
         - maximum of 3 and 5 is 5
         - maximum of 7 and 0 is 7
 
@@ -131,6 +131,45 @@ and a failing test would show the following:
       1) maximum of two numbers (unrolled) maximum of 7 and 0 is 0:
          expected 7 to equal 0
 
+Another way of using unroll can be
+
+      unroll.use(it);
+      describe('maximum of two numbers (unrolled)', function() {
+        unroll('calculates the maximum of #b and #a',
+          function(done, testArgs) {
+            expect(
+              Math.max(testArgs['a'], testArgs['b'])
+            ).to.be.equal(testArgs['c']);
+            done();
+          },
+          [
+            ['a', 'b', 'c'],
+            [ 3,   5,   5 ],
+            [ 7,   0,   7 ]
+          ]
+        );
+    });
+
+Here the title parameters are out of sequence with the sequence of the testArgs passed.
+The output for this type of usage would be something like:
+
+      maximum of two numbers
+        - calculates the maximum of 5 and 3
+        - calculates the maximum of 0 and 7
+
+      ✔ 2 tests complete (6ms)
+
+and a failing test would show the following:
+
+      maximum of two numbers (unrolled)
+        ✓ calculates the maximum of 5 and 3
+        1) calculates the maximum of 0 and 7
+
+
+      ✖ 1 of 2 tests failed:
+
+      1) maximum of two numbers (unrolled) calculates the maximum of 0 and 7 is 0:
+         expected 7 to equal 0
 
 The examples directory has examples for various testing frameworks. There are `npm run` commands to run each example or one can run all the examples with: 
 
