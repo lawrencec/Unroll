@@ -5,7 +5,7 @@ unroll.use(test);
 
 test(
   '[ava] maximum of two numbers is performed correctly (without unroll)',
-  function(t) {
+  function (t) {
     t.plan(2);
     t.is(Math.max(3, 5), 5);
     t.is(Math.max(7, 0), 7);
@@ -14,7 +14,7 @@ test(
 
 unroll(
   '[ava] maximum of #a and #b is #c (unrolled)',
-  function(t, testArgs) {
+  function (t, testArgs) {
     t.plan(1);
     t.is(Math.max(testArgs.a, testArgs.b), testArgs.c);
   },
@@ -31,7 +31,7 @@ unroll(
  */
 unroll(
   '[ava] calculates the maximum of #b and #a (unrolled)',
-  function(t, testArgs) {
+  function (t, testArgs) {
     t.plan(1);
     t.is(Math.max(testArgs.a, testArgs.b), testArgs.c);
   },
@@ -46,7 +46,7 @@ unroll.use(test.cb);
 
 unroll(
   '[ava] maximum of #a and #b is #c (unrolled as callback)',
-  function(t, testArgs) {
+  function (t, testArgs) {
     t.plan(1);
     t.is(Math.max(testArgs.a, testArgs.b), testArgs.c);
     t.end();
