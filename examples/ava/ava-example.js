@@ -26,6 +26,22 @@ unroll(
   ]
 );
 
+/*
+ * The parameters in the title are out of sequence with the passed parameters.
+ */
+unroll(
+  '[ava] calculates the maximum of #b and #a (unrolled)',
+  function(t, testArgs) {
+    t.plan(1);
+    t.is(Math.max(testArgs.a, testArgs.b), testArgs.c);
+  },
+  [
+    ['a', 'b', 'c'],
+    [3, 5, 5],
+    [7, 0, 7]/* change last entry to [7, 0, 0] to see failure */
+  ]
+);
+
 unroll.use(test.cb);
 
 unroll(
