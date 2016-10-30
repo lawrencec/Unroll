@@ -37,6 +37,7 @@
     "eslint": "^1.10.3",
     "eslint-config-google": "^0.3.0",
     "istanbul": "^0.3.22",
+    "jasmine": "^2.5.2",
     "jasmine-reporters": "^2.1.1",
     "karma": "^0.12.37",
     "karma-chai": "^0.1.0",
