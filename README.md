@@ -1,4 +1,4 @@
-Unroll [![Build Status](https://drone.io/github.com/lawrencec/Unroll/status.png)](https://drone.io/github.com/lawrencec/Unroll/latest) [![Code Climate](https://codeclimate.com/github/lawrencec/Unroll/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/Unroll) [![Test Coverage](https://codeclimate.com/github/lawrencec/Unroll/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/Unroll/coverage)
+Unroll [![Build Status](https://travis-ci.org/lawrencec/Unroll.svg?branch=master)](https://travis-ci.org/lawrencec/Unroll) [![Code Climate](https://codeclimate.com/github/lawrencec/Unroll/badges/gpa.svg)](https://codeclimate.com/github/lawrencec/Unroll) [![Test Coverage](https://codeclimate.com/github/lawrencec/Unroll/badges/coverage.svg)](https://codeclimate.com/github/lawrencec/Unroll/coverage)
 ======
 
 A helper tool (for browser and node tests) to easily iterate through test data against a single test method with output about each test iteration and its parameters. Or in other words a helper method to parameterize your tests.
@@ -68,14 +68,14 @@ Using a similar example from the above spock unroll documentation, a simple test
         expect(Math.max(7, 0)).to.be.equal(7);
         done();
       });
-  
+
     });
 
 The test output would look like the following:
 
 
       maximum of two numbers
-        ✓ is performed correctly 
+        ✓ is performed correctly
 
       ✔ 1 test complete (4ms)
 
@@ -122,7 +122,7 @@ would give an unrolled test output like:
 and a failing test would show the following:
 
       maximum of two numbers (unrolled)
-        ✓ maximum of 3 and 5 is 5 
+        ✓ maximum of 3 and 5 is 5
         1) maximum of 7 and 0 is 0
 
 
@@ -171,7 +171,7 @@ and a failing test would show the following:
       1) maximum of two numbers (unrolled) calculates the maximum of 0 and 7 is 0:
          expected 7 to equal 0
 
-The examples directory has examples for various testing frameworks. There are `npm run` commands to run each example or one can run all the examples with: 
+The examples directory has examples for various testing frameworks. There are `npm run` commands to run each example or one can run all the examples with:
 
 	$> npm run examples
 
@@ -205,7 +205,7 @@ Browser tests can be run via karma (install the dev dependencies first):
     $> npm run test-browser
 
 A coverage report can be generated in target/lcov-report/index.html via:
-	
+
     $> npm run coverage
 
 ## Lint

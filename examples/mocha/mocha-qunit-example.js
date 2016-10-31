@@ -5,7 +5,7 @@ var expect = chai.expect;
 unroll.use(test);
 
 suite('[mocha qunit] maximum of two numbers (without unroll)');
-test('is performed correctly', function(done) {
+test('is performed correctly', function (done) {
   expect(Math.max(3, 5)).to.be.equal(5);
   expect(Math.max(7, 0)).to.be.equal(7);
   done();
@@ -13,7 +13,7 @@ test('is performed correctly', function(done) {
 
 suite('[mocha qunit] maximum of two numbers (unrolled)');
 unroll('maximum of #a and #b is #c',
-  function(done, testArgs) {
+  function (done, testArgs) {
     expect(
       Math.max(testArgs.a, testArgs.b)
     ).to.be.equal(testArgs.c);
@@ -31,7 +31,7 @@ unroll('maximum of #a and #b is #c',
  * The parameters in the title are out of sequence with the passed parameters.
  */
 unroll('calculates the maximum of #b and #a',
-  function(done, testArgs) {
+  function (done, testArgs) {
     expect(
       Math.max(testArgs.a, testArgs.b)
     ).to.be.equal(testArgs.c);

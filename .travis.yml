@@ -1,4 +1,7 @@
 language: node_js
 node_js:
   - "4"
-script: npm run coverage-cc; npm run examples
+script:
+  - npm run lint
+  - npm run coverage-cc
+  - npm run examples

@@ -8,25 +8,25 @@ if (typeof window === 'undefined') {
 }
 var expect = chai.expect;
 
-describe('unroll()', function() {
-  describe('outputs test title correctly', function() {
+describe('unroll()', function () {
+  describe('outputs test title correctly', function () {
     var testTitle = 'The #entity jumped over the #thing.';
     var sandbox;
     var spy;
 
-    beforeEach(function() {
+    beforeEach(function () {
       sandbox = sinon.sandbox.create();
-      spy = sandbox.spy(function() {});
+      spy = sandbox.spy(function () {});
       unroll.use(spy);
     });
 
-    afterEach(function() {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('when correctly called with string values', function(done) {
+    it('when correctly called with string values', function (done) {
       unroll(testTitle,
-        function() {
+        function () {
 
         },
         [
@@ -41,10 +41,10 @@ describe('unroll()', function() {
       done();
     });
 
-    it('when correctly called with object values', function(done) {
+    it('when correctly called with object values', function (done) {
       var testTitle = 'The #entity jumped over the #thing.';
       unroll(testTitle,
-        function() {},
+        function () {},
         [
           ['entity', 'thing'],
           ['cat', {isAnObject: true}]
@@ -58,10 +58,10 @@ describe('unroll()', function() {
     });
 
     it('when correctly called with object values and title references subkey',
-      function(done) {
+      function (done) {
         var testTitle = 'The #entity jumped over the #thing.name.';
         unroll(testTitle,
-          function() {},
+          function () {},
           [
             ['entity', 'thing'],
             ['cat', {name: 'dog'}]
@@ -75,10 +75,10 @@ describe('unroll()', function() {
       }
     );
 
-    it('when correctly called with array values', function(done) {
+    it('when correctly called with array values', function (done) {
       var testTitle = 'The #entity jumped over the #thing.';
       unroll(testTitle,
-        function() {},
+        function () {},
         [
           ['entity', 'thing'],
           ['cat', [1]]
@@ -91,10 +91,10 @@ describe('unroll()', function() {
       done();
     });
 
-    it('when correctly called with number values', function(done) {
+    it('when correctly called with number values', function (done) {
       var testTitle = 'The #entity jumped over the moon #times times.';
       unroll(testTitle,
-        function() {},
+        function () {},
         [
           ['entity', 'times'],
           ['cat', 6]
@@ -107,10 +107,9 @@ describe('unroll()', function() {
       done();
     });
 
-    it('when called with incorrect sequence of testArgs in the title', function() {
-      
-      unroll('The #entity jumped.', 
-        function() {}, 
+    it('when called with incorrect sequence of testArgs in the title', function () {
+      unroll('The #entity jumped.',
+        function () {},
         [
           ['entity', 'thing'],
           ['cat', 'moon'],
@@ -122,31 +121,29 @@ describe('unroll()', function() {
       expect(spy.callCount).to.equal(3);
       expect(spy.firstCall.args[0]).to.equal('The "cat" jumped.');
       expect(spy.secondCall.args[0]).to.equal('The 1 jumped.');
-      expect(spy.thirdCall.args[0]).to.equal('The {"name":"cat"} jumped.')
-
+      expect(spy.thirdCall.args[0]).to.equal('The {"name":"cat"} jumped.');
     });
   });
 
-  describe('calls the test function', function() {
+  describe('calls the test function', function () {
     var dummyContainer, stub;
 
-    beforeEach(function() {
+    beforeEach(function () {
       dummyContainer = {
-        it: function() {}
+        it: function () {}
       };
-      stub = sinon.stub(dummyContainer, 'it', function(title, fn) {
+      stub = sinon.stub(dummyContainer, 'it', function (title, fn) {
         expect(fn).to.be.a('function');
         fn();
       });
       unroll.use(stub);
     });
 
-    afterEach(function() {
+    afterEach(function () {
       stub.restore();
     });
 
-    it('with unrolled test arguments correctly', function(done) {
-
+    it('with unrolled test arguments correctly', function (done) {
       var possibleTitles = [
         'The #entity jumped over the #thing.',
         'The #thing was jumped over by the #entity.',
@@ -158,12 +155,12 @@ describe('unroll()', function() {
 
       var possibleValues = [
         ['cat', 'moon'],
-        [1,2],
-        [[1,2,3], [4,5,6]],
+        [1, 2],
+        [[1, 2, 3], [4, 5, 6]],
         [{name: 'cat', type: 'animal'}, {name: 'moon', type: 'object'}]
       ];
 
-      possibleValues.forEach(function(value) {
+      possibleValues.forEach(function (value) {
         possibleTitles.forEach(
           function (title) {
             unroll(title,
@@ -188,27 +185,27 @@ describe('unroll()', function() {
     });
   });
 
-  describe('throws exception when incorrectly called', function() {
+  describe('throws exception when incorrectly called', function () {
     var testTitle = 'The #entity jumped over the #thing.';
     var spy;
 
-    beforeEach(function() {
+    beforeEach(function () {
       unroll.grammar = null;
       unroll.use(it);
       spy = sinon.spy(unroll);
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
       spy.reset();
       done();
     });
 
-    it('with mismatched unroll key/title values', function(done) {
+    it('with mismatched unroll key/title values', function (done) {
       var error = '';
 
       try {
         unroll(testTitle,
-          function() {},
+          function () {},
           [
             ['incorrect', 'stuff'],
             ['bar', 'moon']
@@ -227,12 +224,12 @@ describe('unroll()', function() {
       done();
     });
 
-    it('with mismatched number of unroll key/title values', function(done) {
+    it('with mismatched number of unroll key/title values', function (done) {
       var error = '';
 
       try {
         unroll(testTitle,
-          function() {},
+          function () {},
           [
             ['incorrect', 'stuff'],
             ['cat']
@@ -251,12 +248,12 @@ describe('unroll()', function() {
       done();
     });
 
-    it('with keys that are not of String type', function(done) {
+    it('with keys that are not of String type', function (done) {
       var error = '';
 
       try {
         unroll(testTitle,
-            function() {},
+            function () {},
           [
               ['incorrect', {shouldNotBeAnObject: true}],
               ['cat', 'dog']
@@ -276,13 +273,13 @@ describe('unroll()', function() {
       done();
     });
 
-    it('with incorrectly subkey references in title', function(done) {
+    it('with incorrectly subkey references in title', function (done) {
       var testTitle = 'The #entity jumped over the #thing.INCORRECT.';
       var error = '';
 
       try {
         unroll(testTitle,
-          function() {},
+          function () {},
           [
             ['entity', 'thing'],
             ['cat', {name: 'dog'}]
@@ -302,22 +299,22 @@ describe('unroll()', function() {
     });
   });
 
-  describe('.use()', function() {
-    beforeEach(function() {
+  describe('.use()', function () {
+    beforeEach(function () {
       unroll.use(null);
     });
     var testTitle = 'The #entity jumped over the #thing.';
 
-    it('must return the correct specified grammar', function() {
-      var grammar = unroll.use(function() {});
+    it('must return the correct specified grammar', function () {
+      var grammar = unroll.use(function () {});
       expect(grammar).to.be.a('function');
     });
 
-    it('should use throw error if no grammar specified', function() {
+    it('should use throw error if no grammar specified', function () {
       var error = '';
       try {
         unroll(testTitle,
-          function() {},
+          function () {},
           [
             ['entity', 'thing'],
             ['cat', {}]
