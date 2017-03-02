@@ -37,7 +37,7 @@
     "eslint": "^3.9.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "3.4.0",
-    "eslint-plugin-standard": "2.0.0",
+    "eslint-plugin-standard": "2.1.0",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "jasmine-reporters": "^2.1.1",
