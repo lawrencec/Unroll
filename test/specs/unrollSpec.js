@@ -183,6 +183,31 @@ describe('unroll()', function () {
 
       done();
     });
+
+    it('titles are unrolled correctly when unroll args are reused across testcases', function (done) {
+      const myRoutes = [
+        ['entity', 'thing'],
+        ['cat', 'baby']
+      ];
+
+      unroll(
+        'The #entity jumped over the #thing.',
+        function (done, testArgs) {
+          expect(testArgs.entity).to.equal('cat');
+          expect(testArgs.thing).to.equal('baby');
+        },
+        myRoutes
+      );
+      unroll(
+          'The #entity jumped over the #thing.',
+          function (done, testArgs) {
+            expect(testArgs.entity).to.equal('cat');
+            expect(testArgs.thing).to.equal('baby');
+          },
+          myRoutes
+      );
+      done();
+    });
   });
 
   describe('throws exception when incorrectly called', function () {
