@@ -354,4 +354,34 @@ describe('unroll()', function () {
       );
     });
   });
+
+  describe('async functions', function () {
+    var sandbox;
+    var spy;
+
+    beforeEach(function () {
+      sandbox = sinon.sandbox.create();
+      spy = sandbox.spy();
+      unroll.use(spy);
+    });
+
+    afterEach(function () {
+      sandbox.restore();
+    });
+
+    it('is called correctly', function () {
+      var testTitle = 'The #entity jumped over the moon #times times.';
+      unroll(testTitle,
+        async function (testArgs) {
+          return await 12;
+        },
+        [
+          ['entity', 'times'],
+          ['cat', 6]
+        ]
+      );
+      expect(spy.callCount).to.equal(1);
+      expect(spy.firstCall.args[0]).to.equal('The "cat" jumped over the moon 6 times.');
+    });
+  });
 });
