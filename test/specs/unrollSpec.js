@@ -1,5 +1,8 @@
+// eslint-disable-next-line no-use-before-define
 var chai = chai || require('chai');
+// eslint-disable-next-line no-use-before-define
 var sinon = sinon || require('sinon');
+// eslint-disable-next-line no-use-before-define
 var unroll = unroll || require('../../lib/unroll.js');
 
 if (typeof window === 'undefined') {
@@ -36,8 +39,8 @@ describe('unroll()', function () {
       );
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
-            .to
-            .equal('The "cat" jumped over the "moon".');
+        .to
+        .equal('The "cat" jumped over the "moon".');
       done();
     });
 
@@ -52,8 +55,8 @@ describe('unroll()', function () {
       );
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
-            .to
-            .equal('The "cat" jumped over the {"isAnObject":true}.');
+        .to
+        .equal('The "cat" jumped over the {"isAnObject":true}.');
       done();
     });
 
@@ -86,8 +89,8 @@ describe('unroll()', function () {
       );
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
-            .to
-            .equal('The "cat" jumped over the [1].');
+        .to
+        .equal('The "cat" jumped over the [1].');
       done();
     });
 
@@ -102,8 +105,8 @@ describe('unroll()', function () {
       );
       expect(spy.callCount).to.equal(1);
       expect(spy.firstCall.args[0])
-          .to
-          .equal('The "cat" jumped over the moon 6 times.');
+        .to
+        .equal('The "cat" jumped over the moon 6 times.');
       done();
     });
 
@@ -132,7 +135,7 @@ describe('unroll()', function () {
       dummyContainer = {
         it: function () {}
       };
-      stub = sinon.stub(dummyContainer, 'it', function (title, fn) {
+      stub = sinon.stub(dummyContainer, 'it').callsFake(function (title, fn) {
         expect(fn).to.be.a('function');
         fn();
       });
@@ -199,12 +202,12 @@ describe('unroll()', function () {
         myRoutes
       );
       unroll(
-          'The #entity jumped over the #thing.',
-          function (done, testArgs) {
-            expect(testArgs.entity).to.equal('cat');
-            expect(testArgs.thing).to.equal('baby');
-          },
-          myRoutes
+        'The #entity jumped over the #thing.',
+        function (done, testArgs) {
+          expect(testArgs.entity).to.equal('cat');
+          expect(testArgs.thing).to.equal('baby');
+        },
+        myRoutes
       );
       done();
     });
@@ -278,10 +281,10 @@ describe('unroll()', function () {
 
       try {
         unroll(testTitle,
-            function () {},
+          function () {},
           [
-              ['incorrect', {shouldNotBeAnObject: true}],
-              ['cat', 'dog']
+            ['incorrect', {shouldNotBeAnObject: true}],
+            ['cat', 'dog']
           ]
         );
       } catch (e) {
@@ -317,7 +320,7 @@ describe('unroll()', function () {
       expect(spy.called);
       expect(spy.threw());
       expect(error).to.equal(
-          'Error: INCORRECT not found in arg: {"name":"dog"}'
+        'Error: INCORRECT not found in arg: {"name":"dog"}'
       );
 
       done();
@@ -373,7 +376,7 @@ describe('unroll()', function () {
       var testTitle = 'The #entity jumped over the moon #times times.';
       unroll(testTitle,
         async function (testArgs) {
-          return await 12;
+          await 12;
         },
         [
           ['entity', 'times'],
