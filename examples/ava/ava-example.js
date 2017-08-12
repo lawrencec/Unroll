@@ -62,40 +62,32 @@ unroll(
 unroll.use(test);
 
 unroll('[ava] async/await calculates the maximum of #b and #a',
-    async function (t, testArgs) {
-      const testPromise = new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          resolve(Math.max(testArgs.a, testArgs.b));
-        }, 200);
-      });
-      const result = await testPromise;
-      t.plan(1);
-      t.is(result, testArgs.c);
-    },
+  async function (t, testArgs) {
+    const testPromise = Promise.resolve(Math.max(testArgs.a, testArgs.b));
+    const result = await testPromise;
+    t.is(result, testArgs.c);
+    return testPromise;
+  },
   [
-      ['a', 'b', 'c'],
-      [3, 5, 5],
-      [7, 0, 7]
-      /* change last entry to [7, 0, 0] to see failure */
+    ['a', 'b', 'c'],
+    [3, 5, 5],
+    [7, 0, 7]
+    /* change last entry to [7, 0, 0] to see failure */
   ]
 );
 
 unroll('[ava] async/await passes errors correctly when the maximum of #b and #a is not equal to #c',
-    async function (t, testArgs) {
-      const testPromise = new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          reject('Uh-oh');
-        }, 200);
-      });
-
-      return await testPromise
-          .catch(function (err) {
-            t.is(err, 'Uh-oh');
-          });
-    },
+  async function (t) {
+    const testPromise = Promise.reject(new Error('Uh-oh'));
+    try {
+      await testPromise;
+    } catch (err) {
+      t.is(err.message, 'Uh-oh');
+    }
+  },
   [
-      ['a', 'b', 'c'],
-      [3, 5, 3],
-      [7, 0, 0]
+    ['a', 'b', 'c'],
+    [3, 5, 3],
+    [7, 0, 0]
   ]
 );
