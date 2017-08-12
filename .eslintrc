@@ -23,6 +23,7 @@
   "globals": {
     "window": true,
     "describe": true,
+    "expect",
     "it": true,
     "beforeEach": true,
     "afterEach": true,
