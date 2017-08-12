@@ -46,3 +46,36 @@ suite('[mocha tdd] maximum of two numbers (unrolled)', function () {
     ]
   );
 });
+
+suite('[mocha tdd] async/await tests (unrolled)', function () {
+  unroll('calculates the maximum of #b and #a',
+    async function (testArgs) {
+      const testPromise = Promise.resolve(Math.max(testArgs.a, testArgs.b));
+      const result = await testPromise;
+      expect(result).to.be.equal(testArgs.c);
+      return testPromise;
+    },
+    [
+      ['a', 'b', 'c'],
+      [3, 5, 5],
+      [7, 0, 7]
+      /* change last entry to [7, 0, 0] to see failure */
+    ]
+  );
+
+  unroll('passes errors correctly when the maximum of #b and #a is not equal to #c',
+    async function () {
+      const testPromise = Promise.reject(new Error('Uh-oh'));
+      try {
+        await testPromise;
+      } catch (err) {
+        expect(err.message).to.be.equal('Uh-oh');
+      }
+    },
+    [
+      ['a', 'b', 'c'],
+      [3, 5, 3],
+      [7, 0, 0]
+    ]
+  );
+});

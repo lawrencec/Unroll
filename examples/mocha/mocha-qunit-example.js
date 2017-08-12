@@ -30,7 +30,7 @@ unroll('maximum of #a and #b is #c',
 /*
  * The parameters in the title are out of sequence with the passed parameters.
  */
-unroll('calculates the maximum of #b and #a',
+unroll('calculates the maximum of #b and #a (unrolled)',
   function (done, testArgs) {
     expect(
       Math.max(testArgs.a, testArgs.b)
