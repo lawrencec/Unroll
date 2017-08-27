@@ -51,6 +51,40 @@ Note the use of `#` character to prefix parameter name and the additional argume
         );
     });
 
+The data table can also be specified using a template literal if nested arrays aren't your thing. For example the above can be written
+like so when using template literals.
+
+    ```
+	describe('maximum of two numbers (unrolled)', function() {
+        unroll('maximum of #a and #b is #c',
+          function(done, testArgs) {
+            expect(
+              Math.max(testArgs['a'], testArgs['b'])
+            ).to.be.equal(testArgs['c']);
+            done();
+          },
+          `
+            where:
+            a   |   b   |   c
+            3   |   5   |   5
+            7   |   0   |   7
+          `
+        );
+    });
+
+Note, that objects and arrays need to be stringified first:
+
+    ```
+    unroll('The #thing was jumped over by #entity.',
+        () => {},
+        `
+          where:
+          entity                            |   thing
+          cat                               |   moon
+          1                                 |   2
+          ${JSON.stringify({name: 'cat'})}  |   ${JSON.stringify({name: 'moon'})}
+        `
+      );
 
 ## Examples
 
