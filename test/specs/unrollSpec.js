@@ -326,7 +326,7 @@ describe('unroll()', function () {
       done();
     });
 
-    it('with unrolled values not wrapper in an array', function (done) {
+    it('with unrolled values not wrapped in an array', function (done) {
       var error = '';
 
       try {
