@@ -325,6 +325,28 @@ describe('unroll()', function () {
 
       done();
     });
+
+    it('with unrolled values not wrapper in an array', function (done) {
+      var error = '';
+
+      try {
+        unroll(testTitle,
+          function () {},
+          ['foo', 'baz'],
+          ['x', 'y']
+        );
+      } catch (e) {
+        error = e.toString();
+      }
+
+      expect(spy.called);
+      expect(spy.threw());
+      expect(error).to.contain(
+        'nested array'
+      );
+
+      done();
+    });
   });
 
   describe('.use()', function () {
