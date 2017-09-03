@@ -3,5 +3,5 @@ node_js:
   - "7"
 script:
   - npm run lint
-  - npm run coverage-cc
+  - npm run coverage
   - npm run examples
