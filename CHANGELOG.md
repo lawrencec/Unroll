@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0] - 2017-09-03
+### Added
+
+- Fix for [incorrect test args silently fails to execute test](https://github.com/lawrencec/Unroll/issues/30)
+
+## [1.2.2] - 2017-06-25
+### Added
+
+- Fix for [some async test would always pass](https://github.com/lawrencec/Unroll/issues/21)
+
+## [1.2.1] - 2017-05-18
+### Added
+
+- Fix for [Test args is mutated](https://github.com/lawrencec/Unroll/issues/14)
+
+
 ## [1.1.0] - 2015-12-30
 ### Added
 
