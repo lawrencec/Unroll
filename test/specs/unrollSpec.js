@@ -1,3 +1,5 @@
+'use strict';
+
 // eslint-disable-next-line no-use-before-define
 var chai = chai || require('chai');
 // eslint-disable-next-line no-use-before-define
@@ -190,10 +192,10 @@ describe('unroll()', () => {
       unroll(
         'The maximum value of #a and #b is #c.',
         () => {},
-        ` 
+        `
           where:
           a | b | c
-          3.2 | 5.3 | 5.3 
+          3.2 | 5.3 | 5.3
           7 | 0 | 7
         `
       );
