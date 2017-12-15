@@ -53,7 +53,7 @@
     "karma-coverage": "^1.1.1",
     "karma-junit-reporter": "^1.1.0",
     "karma-mocha": "^1.2.0",
-    "karma-spec-reporter": "0.0.31",
+    "karma-spec-reporter": "0.0.32",
     "mocha": "^3.1.2",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0",
