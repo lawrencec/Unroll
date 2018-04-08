@@ -11,7 +11,10 @@
     "semi": [
       2,
       "always"
-    ]
+    ],
+    "immutable/no-let": 2,
+    "immutable/no-this": 2,
+    "immutable/no-mutation": 2
   },
   "env": {
     "browser": true,
@@ -19,6 +22,9 @@
   },
   "extends": [
     "standard"
+  ],
+  "plugins": [
+    "immutable"
   ],
   "globals": {
     "window": true,

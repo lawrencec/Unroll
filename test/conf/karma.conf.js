@@ -1,3 +1,4 @@
+// eslint-disable-next-line immutable/no-mutation
 module.exports = function (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
