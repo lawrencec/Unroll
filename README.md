@@ -86,6 +86,45 @@ Note, that objects and arrays need to be stringified first:
         `
       );
 
+# Null and undefined values
+
+To test for undefined null and undefined values, use the following syntax. This is because there is an error check to see
+if all required values have been passed and values of null and undefined defeat that test. A replacement value is used to state
+the intention but the actual value of null or undefined will be passed to the test.
+
+    ```
+    unroll('should be okay with id being #id', (done, testArgs) => {
+        let object = { id: testArgs.id };
+        expect(object.id).toEqual(testArgs.id);
+        done();
+    },
+    `
+        where:
+        id
+        ${Symbol.keyFor(unroll.NULL)}
+        ${Symbol.keyFor(unroll.UNDEFINED)}
+    `
+    );
+    and the array notation:
+
+    unroll('should be okay with id being #id', (done, testArgs) => {
+        let object = { id: testArgs.id };
+        expect(object.id).toEqual(testArgs.id);
+        done();
+    },
+    [
+       ['id']
+       [null],
+       [undefined],
+       [Unroll.NULL],
+       [Unroll.UNDEFINED],
+    ]
+
+
+    ```
+
+make
+
 ## Examples
 
 The following example is the same shown in examples/mocha-bdd-example.js file. It can be run using Mocha eg:
