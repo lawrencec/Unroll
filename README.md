@@ -1,4 +1,4 @@
-Unroll [![Build Status](https://travis-ci.org/lawrencec/Unroll.svg?branch=master)](https://travis-ci.org/lawrencec/Unroll)[![Test Coverage](https://api.codeclimate.com/v1/badges/354f9071b3236f402f4e/test_coverage)](https://codeclimate.com/github/lawrencec/Unroll/test_coverage)
+Unroll [![Build Status](https://travis-ci.org/lawrencec/Unroll.svg?branch=master)](https://travis-ci.org/lawrencec/Unroll)[![Test Coverage](https://coveralls.io/repos/github/lawrencec/Unroll/badge.svg?branch=master)](https://coveralls.io/github/lawrencec/Unroll?branch=master)
 =====================================================================================================================================================================================================================================================================================
 
 A helper tool (for browser and node tests) to easily iterate through test data against a single test method with output about each test iteration and its parameters. Or in other words a helper method to parameterize your tests.
