@@ -49,6 +49,21 @@ describe('unroll()', () => {
       assert.calledWithExactly(testSpy, 'The "dog" jumped over the "planet".', match.func);
     });
 
+    it('(array.notation) when called with string values, use $index', () => {
+      unroll(
+        '$index) ' + testTitle,
+        () => {},
+        [
+          ['entity', 'thing'],
+          ['cat', 'moon'],
+          ['dog', 'planet']
+        ]
+      );
+      assert.callCount(testSpy, 2);
+      assert.calledWithExactly(testSpy, '1) The "cat" jumped over the "moon".', match.func);
+      assert.calledWithExactly(testSpy, '2) The "dog" jumped over the "planet".', match.func);
+    });
+
     it('(array.notation) when called with object values', () => {
       unroll(
         testTitle,
@@ -62,6 +77,21 @@ describe('unroll()', () => {
       assert.callCount(testSpy, 2);
       assert.calledWithExactly(testSpy, 'The "cat" jumped over the {"isAnObject":true}.', match.func);
       assert.calledWithExactly(testSpy, 'The "dog" jumped over the "planet".', match.func);
+    });
+
+    it('(array.notation) when called with object values, use $index', () => {
+      unroll(
+        '$index) ' + testTitle,
+        () => {},
+        [
+          ['entity', 'thing'],
+          ['cat', {isAnObject: true}],
+          ['dog', 'planet']
+        ]
+      );
+      assert.callCount(testSpy, 2);
+      assert.calledWithExactly(testSpy, '1) The "cat" jumped over the {"isAnObject":true}.', match.func);
+      assert.calledWithExactly(testSpy, '2) The "dog" jumped over the "planet".', match.func);
     });
 
     it('(array.notation) when called with object values and title references subkey', () => {
