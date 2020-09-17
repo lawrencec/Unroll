@@ -34,6 +34,19 @@ afterEach(function () {
 // });
 describe('unroll()', () => {
   describe('outputs test title correctly', () => {
+    it('(array.notation) when called with falsy values or function ref', () => {
+      unroll(
+        'Should print this as #entity',
+        () => {},
+        [
+          ['entity'],
+          [parseInt]
+        ]
+      );
+      assert.callCount(testSpy, 1);
+      assert.calledWithExactly(testSpy, 'Should print this as parseInt', match.func);
+    });
+
     it('(array.notation) when called with string values', () => {
       unroll(
         testTitle,
