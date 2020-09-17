@@ -36,17 +36,15 @@ describe('unroll()', () => {
   describe('outputs test title correctly', () => {
     it('(array.notation) when called with falsy values or function ref', () => {
       unroll(
-        testTitle,
+        'Should print this as #entity',
         () => {},
         [
-          ['entity', 'thing'],
-          [undefined, 'moon'],
-          [parseInt, 'planet']
+          ['entity'],
+          [parseInt]
         ]
       );
-      assert.callCount(testSpy, 2);
-      assert.calledWithExactly(testSpy, 'The "undefined" jumped over the "moon".', match.func);
-      assert.calledWithExactly(testSpy, 'The "parseInt" jumped over the "planet".', match.func);
+      assert.callCount(testSpy, 1);
+      assert.calledWithExactly(testSpy, 'Should print this as parseInt', match.func);
     });
 
     it('(array.notation) when called with string values', () => {
